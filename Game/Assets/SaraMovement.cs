@@ -14,7 +14,7 @@ public class SaraMovement : MonoBehaviour
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -36,22 +36,16 @@ public class SaraMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
         // Rotation
-        if (x!=0 || y!=0) {
-            //transform.Rotate(0,0,90f);
+        if (x!=0 || y!=0) {            
             rb.rotation = RotateCharacter(x, y);            
-        }
-
-        
-
-
+        }           
     }
 
     float RotateCharacter(float x, float y) {
         if (x == 1 && y == 1) return 180f;
         if (x == 0 && y == 1) return 225f;
         if (x == -1 && y == 1) return 270f;
-        if (x == -1 && y == 0) return 315f;
-        //if (x == -1 && y == -1) return 360f;
+        if (x == -1 && y == 0) return 315f;        
         if (x == 0 && y == -1) return 45f;
         if (x == 1 && y == -1) return 90f;
         if (x == 1 && y == 0) return 135f;        
