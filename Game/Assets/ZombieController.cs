@@ -4,70 +4,57 @@ using UnityEngine;
 
 public class ZombieController : MonoBehaviour
 {
-    public Transform target;
     private Rigidbody2D rb;
+    private Transform target;
     private float initialRotation = 90f;
+
+    public Animator animator;
+    public float speed;
     public float visionDistance;
     public float attackDistance;
-    public float moveSpeed;
-    public Animator animator;
-
-    // Start is called before the first frame update
+    
     void Start() {
-        rb = GetComponent<Rigidbody2D>();        
+        rb = GetComponent<Rigidbody2D>();
+        target = GameObject.FindGameObjectWithTag("Sara").GetComponent<Transform>();
+        
     }
 
-    // Update is called once per frame
     void Update() {
-        Vector2 direction = target.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        float targetDistance = Vector3.Distance(target.position, transform.position);
-        Debug.Log("targetDistance: " + targetDistance);
+        // Distance between Zombie and Sara
+        float targetDistance = Vector2.Distance(target.position, transform.position);
 
-        Vector2 actualPosition = rb.transform.position;
-        float actualRotation = rb.rotation;
-
-        Debug.Log("actualPosition: " + actualPosition);
-        Debug.Log("actualRotation: " + actualRotation);
-
-        animator.SetBool("Walking", false);
-        if (targetDistance < visionDistance) {
+        // If Zombie can see Sara, then it move to her
+        if (targetDistance < visionDistance && attackDistance < targetDistance)
+        { 
+            // Calculate the vector between zombie and Sara
+            Vector2 direction = target.position - transform.position;
+            // Calculete the angle of the vector
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // Rotate the zombie the angle
             rb.rotation = initialRotation + angle;
-            if (attackDistance < targetDistance) {
-                animator.SetBool("Walking", true);
-                rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+            // Activate the walking animation
+            setAnimatorParameters(false, true);
+            // Move the zombie to new position
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        }
+        else {
+            // If Zombie is a distance to Sara less than attackDistance, attack her.
+            if (targetDistance < attackDistance) {                
+                setAnimatorParameters(true, false);
             }
-        }
 
-        else {
-            rb.rotation = actualRotation;
-            rb.MovePosition(actualPosition);
-        }
-
-        /*if (attackDistance < targetDistance && targetDistance <= visionDistance) {
-            animator.SetBool("Walking", true);
-            rb.rotation = initialRotation + angle;
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
-                        
-        }
-
-        else {
-            animator.SetBool("Walking", false);
-            if ()
-            rb.rotation = initialRotation + angle;
-        }*/
-        
-
-
-
-
-
-        
-
-        /*if 
-
-        
-        /*Debug.Log("direction: " + direction);
-        Debug.Log("angle: " + angle);*/
+            // Zombie is stopped
+            else {                
+                setAnimatorParameters(false, false);
+                Debug.Log("targetDistance: " + targetDistance);
+            }            
+        }        
     }
+
+    void setAnimatorParameters(bool attack, bool walking) {
+        animator.SetBool("Attack", attack);
+        animator.SetBool("Walking", walking);
+    }
+
+
 }
