@@ -6,7 +6,7 @@ public class SaraHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-    public HealthBarController healthBar;
+    public HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start() {
