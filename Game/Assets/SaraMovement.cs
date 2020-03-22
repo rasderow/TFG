@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class SaraMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public Rigidbody2D rb;
-    public float x = 0f;
-    public float y = 0f;
-    public Animator animator;
+    private float moveSpeed = 5f;
+    private Rigidbody2D rb;
+    private float x = 0f;
+    private float y = 0f;
+    private Animator animator;
 
     Vector2 movement;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         
     }
 
@@ -23,7 +24,7 @@ public class SaraMovement : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
 
-        // Movment
+        // Movement
         movement.x = x;
         movement.y = y;
 

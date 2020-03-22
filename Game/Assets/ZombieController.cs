@@ -1,60 +1,110 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ZombieController : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D rb;    
     private Transform target;
     private float initialRotation = 90f;
+    private float nextAttackTime = 0f;
+    private LayerMask saraLayer;
+    private int currentHealth;
 
     public Animator animator;
+    public Transform attackPoint;
     public float speed;
-    public float visionDistance;
-    public float attackDistance;
+    public float visionRange;
+    public float attackRange;  
+    public int damage; 
+    public float attackRate; // Number of attacks per second
+    public int maxHealth = 100;
     
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();        
         target = GameObject.FindGameObjectWithTag("Sara").GetComponent<Transform>();
-        
+        saraLayer = LayerMask.GetMask("Sara");
+        currentHealth = maxHealth;
     }
-
+        
     void Update() {
+
+        if (currentHealth <= 0) {            
+            return;            
+        }
+
         // Distance between Zombie and Sara
         float targetDistance = Vector2.Distance(target.position, transform.position);
 
-        // If Zombie can see Sara, then it move to her
-        if (targetDistance < visionDistance && attackDistance < targetDistance)
-        { 
-            // Calculate the vector between zombie and Sara
-            Vector2 direction = target.position - transform.position;
-            // Calculete the angle of the vector
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            // Rotate the zombie the angle
-            rb.rotation = initialRotation + angle;
-            // Activate the walking animation
-            setAnimatorParameters(false, true);
+        // Detect the colision with Sara
+        Collider2D hitSara = Physics2D.OverlapCircle(attackPoint.position, attackRange, saraLayer);
+
+        // If the zombie can see Sara, then it move to her
+        if (targetDistance <= visionRange && hitSara == null) {
+            // Spin the sprite for orient it to Sara
+            Spin();
             // Move the zombie to new position
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            Move();            
+        }
+        else { 
+            // Zombie can not view Sara and it stop
+            Stop();
+        }
+
+        // If the zombie can attack to Sara, it does it
+        if (hitSara != null && Time.time >= nextAttackTime) {
+            // Spin the sprite for orient it to Sara
+            Spin();
+            // Attack to Sara
+            Attack(hitSara);
+            // Update the next attack time
+            nextAttackTime = Time.time + 1f / attackRate;           
         }
         else {
-            // If Zombie is a distance to Sara less than attackDistance, attack her.
-            if (targetDistance < attackDistance) {                
-                setAnimatorParameters(true, false);
-            }
-
-            // Zombie is stopped
-            else {                
-                setAnimatorParameters(false, false);
-                Debug.Log("targetDistance: " + targetDistance);
-            }            
-        }        
+            animator.SetBool("Attack", false);
+        }
+    }
+    
+    void Spin() {
+        // Calculate the vector between zombie and Sara
+        Vector2 direction = target.position - transform.position;
+        // Calculete the angle of the vector
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Rotate the zombie the angle
+        rb.rotation = initialRotation + angle;
     }
 
-    void setAnimatorParameters(bool attack, bool walking) {
-        animator.SetBool("Attack", attack);
-        animator.SetBool("Walking", walking);
+    void Move() {
+        // Animate the zombe
+        animator.SetBool("Walking", true);
+        // Move to a new positon
+        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+    }    
+
+    void Attack(Collider2D hitSara) {
+        // Animate the zombe        
+        animator.SetBool("Attack",true);
+        // Make damage to Sara            
+        hitSara.GetComponent<SaraHealth>().TakeDamage(damage);        
     }
 
+    void Stop() {
+        // Animate the zombe        
+        animator.SetBool("Walking", false);
+    }
 
+    void OnDrawGizmosSelected() {
+        if (attackPoint == null) {
+            return;
+        }
+        
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    public void TakeDamage(int damage) {
+        currentHealth = currentHealth - damage;
+        if (currentHealth <= 0) {
+            animator.SetBool("IsDead", true);
+            GetComponent<Collider2D>().enabled = false;
+            GameObject.Destroy(gameObject, 10f);
+        }
+    }
 }

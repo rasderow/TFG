@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class SaraHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
-    public HealthBar healthBar;
+    private int maxHealth = 100;
+    private int currentHealth;    
+    private HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start() {
+        healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.M)) {
-            TakeDamage(20);
-        }
+        
     }
 
     // Damage function
-    void TakeDamage (int damage) {
+    public void TakeDamage (int damage) {
         currentHealth = currentHealth - damage;
         healthBar.SetHealth(currentHealth);
     }
