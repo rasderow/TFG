@@ -6,13 +6,13 @@ public class SaraHealth : MonoBehaviour
 {
     private int maxHealth = 100;
     private int currentHealth;    
-    private HealthBar healthBar;
+    private HealthBar healthBar;    
 
     // Start is called before the first frame update
     void Start() {
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxHealth(maxHealth);        
     }
 
     // Update is called once per frame
@@ -25,4 +25,9 @@ public class SaraHealth : MonoBehaviour
         currentHealth = currentHealth - damage;
         healthBar.SetHealth(currentHealth);
     }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+    
 }

@@ -18,7 +18,7 @@ TagManager:
   - 
   - Sara
   - Enemies
-  - 
+  - Stage
   - 
   - 
   - 
@@ -46,4 +46,13 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Stage
+    uniqueID: 2281336161
+    locked: 0
+  - name: Sara
+    uniqueID: 2555386839
+    locked: 0
+  - name: Enemies
+    uniqueID: 1773475043
     locked: 0
