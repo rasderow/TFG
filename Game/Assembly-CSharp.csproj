@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GameOver.cs" />
+    <Compile Include="Assets\Gun.cs" />
     <Compile Include="Assets\HealthBar.cs" />
     <Compile Include="Assets\HealthBarController.cs" />
     <Compile Include="Assets\Menu\Scripts\MainMenu.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\SaraCombat.cs" />
     <Compile Include="Assets\SaraHealth.cs" />
     <Compile Include="Assets\SaraMovement.cs" />
+    <Compile Include="Assets\SaraWeapons.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
