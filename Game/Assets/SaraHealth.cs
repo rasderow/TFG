@@ -12,7 +12,9 @@ public class SaraHealth : MonoBehaviour
     void Start() {
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);        
+        //currentHealth = 50;
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(currentHealth);
     }
 
     // Update is called once per frame
@@ -22,12 +24,21 @@ public class SaraHealth : MonoBehaviour
 
     // Damage function
     public void TakeDamage (int damage) {
+        /* Deduct health to current health */
         currentHealth = currentHealth - damage;
+        /* Update the health bar with then current health */
         healthBar.SetHealth(currentHealth);
     }
 
     public int getCurrentHealth() {
         return currentHealth;
+    }
+
+    public void gainHealth (int health) {
+        /* Add health to current health */
+        currentHealth = Mathf.Min(maxHealth,currentHealth + health);
+        /* Update the health bar with then current health */
+        healthBar.SetHealth(currentHealth);
     }
     
 }

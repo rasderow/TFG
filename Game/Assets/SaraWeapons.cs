@@ -64,7 +64,8 @@ public class SaraWeapons : MonoBehaviour
     // Start is called before the first frame update
     void Start() {        
         // Add the default weapons to inventari
-        addWeapon(new Weapon(1, "knife", KeyCode.Alpha1, 20, 0.7f, double.PositiveInfinity));
+        addWeapon(new Weapon(1, "knife", KeyCode.Alpha1, 15, 0.7f, double.PositiveInfinity));
+        //addWeapon(new Weapon(3, "riffle", KeyCode.Alpha3, 60, 10.0f, 20));
         //addWeapon(new Weapon(2, "gun", KeyCode.Alpha2, 50, 10.0f, 15));
         actualWeapon = weaponInventari.Find(x => x.GetId() == 1);        
         animator = GetComponent<Animator>();
