@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AudioManager.cs" />
     <Compile Include="Assets\FirstAidKit.cs" />
     <Compile Include="Assets\GameOver.cs" />
     <Compile Include="Assets\Gun.cs" />
@@ -68,12 +69,13 @@
     <Compile Include="Assets\Menu\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Menu\Scripts\SettingsMenu.cs" />
-    <Compile Include="Assets\Riffle.cs" />
+    <Compile Include="Assets\Rifle.cs" />
     <Compile Include="Assets\SaraCollision.cs" />
     <Compile Include="Assets\SaraCombat.cs" />
     <Compile Include="Assets\SaraHealth.cs" />
     <Compile Include="Assets\SaraMovement.cs" />
     <Compile Include="Assets\SaraWeapons.cs" />
+    <Compile Include="Assets\ShotsCounter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Weapon.cs" />
     <Compile Include="Assets\ZombieController.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

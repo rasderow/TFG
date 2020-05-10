@@ -3,7 +3,8 @@ guid: 96f286a78d08ce14c9ca4f8defa1c053
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - knifeClip: {fileID: 8300000, guid: ea693507103399b4082e669c046ae49f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

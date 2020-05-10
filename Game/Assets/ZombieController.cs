@@ -75,6 +75,8 @@ public class ZombieController : MonoBehaviour
     void Move() {
         // Animate the zombe
         animator.SetBool("Walking", true);
+        //Activate the sound
+        GetComponent<AudioSource>().mute = false;
         // Move to a new positon
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }    
@@ -82,6 +84,8 @@ public class ZombieController : MonoBehaviour
     void Attack(Collider2D hitSara) {
         // Animate the zombe        
         animator.SetBool("Attack",true);
+        //Activate the sound
+        GetComponent<AudioSource>().mute = false;
         // Make damage to Sara            
         hitSara.GetComponent<SaraHealth>().TakeDamage(damage);        
     }
@@ -89,6 +93,8 @@ public class ZombieController : MonoBehaviour
     void Stop() {
         // Animate the zombe        
         animator.SetBool("Walking", false);
+        //Mute the sound
+        GetComponent<AudioSource>().mute = true;
     }
 
     void OnDrawGizmosSelected() {
@@ -103,6 +109,8 @@ public class ZombieController : MonoBehaviour
         currentHealth = currentHealth - damage;
         if (currentHealth <= 0) {
             animator.SetBool("IsDead", true);
+            //Mute the sound
+            GetComponent<AudioSource>().mute = true;
             GetComponent<Collider2D>().enabled = false;
             GameObject.Destroy(gameObject, 10f);
         }

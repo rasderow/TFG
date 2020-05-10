@@ -11,7 +11,9 @@ public class SaraCombat : MonoBehaviour
     private Weapon weapon;
     private Transform attackPoint;
     private Vector2 mousePosition;
+    private AudioSource audioWeapon;
 
+    public AudioClip emptyWeapon;
     public Camera cam;
     
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class SaraCombat : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         saraWeapons = GetComponent<SaraWeapons>();
         attackPoint = GameObject.FindGameObjectWithTag("SaraAttackPoint").transform;
+        audioWeapon = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -41,6 +44,9 @@ public class SaraCombat : MonoBehaviour
         Debug.Log("Arma actual: " + weapon.GetName());
 
         if (weapon.GetId() == 1) {
+            // Change the weapon audio
+            audioWeapon.clip = weapon.GetClip();
+
             // Start attack animation
             animator.SetTrigger("Attack");
 
@@ -55,6 +61,10 @@ public class SaraCombat : MonoBehaviour
 
         else {
             if (weapon.GetShots() > 0) {
+                // Change the weapon audio
+                //Debug.Log("clip: " + weapon.GetClip().name);
+                audioWeapon.clip = weapon.GetClip();
+
                 // Start attack animation
                 animator.SetTrigger("Attack");
                 weapon.Shoot();
@@ -67,7 +77,14 @@ public class SaraCombat : MonoBehaviour
                     hitEnemy.collider.GetComponent<ZombieController>().TakeDamage(weapon.GetDamage());
                 }                
             }
+
+            else {
+                // Change the empty weapon audio
+                audioWeapon.clip = emptyWeapon;
+            }
         }
+
+        audioWeapon.Play();
         
     }
 
