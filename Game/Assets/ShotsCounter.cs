@@ -5,9 +5,17 @@ using UnityEngine.UI;
 
 public class ShotsCounter : MonoBehaviour
 {
-    public TextMesh text;
+    public Text text;
 
     public void SetShots(double shots) {
-        text.text = shots.ToString("D");
+        if (shots == double.PositiveInfinity) {
+            text.text = "\u221E";
+            text.transform.localScale = new Vector3(2, 2, 0);
+            //text.text = "Inf";
+        }
+        else {
+            text.text = shots.ToString();
+            text.transform.localScale = new Vector3(1, 1, 0);
+        }
     }
 }

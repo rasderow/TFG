@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaraHealth : MonoBehaviour
 {
-    private int maxHealth = 1;
+    private int maxHealth = 100;
     private int currentHealth;    
     private HealthBar healthBar;    
 

@@ -12,6 +12,7 @@ public class SaraCombat : MonoBehaviour
     private Transform attackPoint;
     private Vector2 mousePosition;
     private AudioSource audioWeapon;
+    private ShotsCounter shotsCounter;
 
     public AudioClip emptyWeapon;
     public Camera cam;
@@ -24,6 +25,7 @@ public class SaraCombat : MonoBehaviour
         saraWeapons = GetComponent<SaraWeapons>();
         attackPoint = GameObject.FindGameObjectWithTag("SaraAttackPoint").transform;
         audioWeapon = GetComponent<AudioSource>();
+        shotsCounter = GameObject.FindGameObjectWithTag("ShotsCounter").GetComponent<ShotsCounter>();
     }
 
     // Update is called once per frame
@@ -40,9 +42,8 @@ public class SaraCombat : MonoBehaviour
         rb.rotation = 95 + Mathf.Atan2(mousePosition.y - rb.position.y, mousePosition.x - rb.position.x) * Mathf.Rad2Deg;                
         
         // Take the actual weapon
-        weapon = saraWeapons.actualWeapon;
-        Debug.Log("Arma actual: " + weapon.GetName());
-
+        weapon = saraWeapons.actualWeapon;      
+        
         if (weapon.GetId() == 1) {
             // Change the weapon audio
             audioWeapon.clip = weapon.GetClip();
@@ -83,9 +84,8 @@ public class SaraCombat : MonoBehaviour
                 audioWeapon.clip = emptyWeapon;
             }
         }
-
-        audioWeapon.Play();
-        
+        shotsCounter.SetShots(weapon.GetShots());
+        audioWeapon.Play();        
     }
 
     void OnDrawGizmosSelected() {

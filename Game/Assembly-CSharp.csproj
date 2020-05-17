@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AudioManager.cs" />
     <Compile Include="Assets\FirstAidKit.cs" />
     <Compile Include="Assets\GameOver.cs" />
     <Compile Include="Assets\Gun.cs" />
@@ -70,7 +69,6 @@
     <Compile Include="Assets\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Menu\Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\Rifle.cs" />
-    <Compile Include="Assets\SaraCollision.cs" />
     <Compile Include="Assets\SaraCombat.cs" />
     <Compile Include="Assets\SaraHealth.cs" />
     <Compile Include="Assets\SaraMovement.cs" />

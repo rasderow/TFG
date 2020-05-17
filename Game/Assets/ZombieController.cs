@@ -23,6 +23,7 @@ public class ZombieController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Sara").GetComponent<Transform>();
         saraLayer = LayerMask.GetMask("Sara");
         currentHealth = maxHealth;
+        visionRange = 30f;
     }
         
     void Update() {

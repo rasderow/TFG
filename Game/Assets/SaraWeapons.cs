@@ -16,8 +16,9 @@ public class SaraWeapons : MonoBehaviour
     void Start() {        
         // Add the default weapons to inventari
         addWeapon(new Weapon(1, "knife", KeyCode.Alpha1, 15, 0.7f, double.PositiveInfinity, knifeClip));        
-        actualWeapon = weaponInventari.Find(x => x.GetId() == 1);
-        shotsCounter= GetComponent<ShotsCounter>();
+        actualWeapon = weaponInventari.Find(x => x.GetId() == 1);        
+        shotsCounter = GameObject.FindGameObjectWithTag("ShotsCounter").GetComponent<ShotsCounter>();
+        shotsCounter.SetShots(actualWeapon.GetShots());
         animator = GetComponent<Animator>();        
     }
 
